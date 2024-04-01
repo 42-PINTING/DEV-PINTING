@@ -1,1 +1,15 @@
-spring.application.name=pinting
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      # ??? ??? Entity? ???? ?? Table DROP & CREATE
+      ddl-auto: create
+
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
