@@ -1,3 +1,52 @@
+HELP.md
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Gradle artifacts
+.gradle
+.gradletasknamecache
+!gradle/wrapper/gradle-wrapper.jar
+/build
+buildSrc/build
+/spring-*/build
+/framework-*/build
+/integration-tests/build
+/src/asciidoc/build
+spring-test/test-output/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# IDEA artifacts and output dirs
+test-output
+atlassian-ide-plugin.xml
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
 # Miscellaneous
 *.java.hsp
 *.sonarj
@@ -15,39 +64,12 @@ jxl.log
 jmx.log
 derby.log
 
-# Gradle artifacts
-.gradle
-.gradletasknamecache
-/build
-buildSrc/build
-/spring-*/build
-/framework-*/build
-/integration-tests/build
-/src/asciidoc/build
-spring-test/test-output/
 
 # Maven artifacts
 pom.xml
 /target/
 
-# Eclipse artifacts, including WTP generated manifests
-bin
-.classpath
-.project
-.settings
-.springBeans
-spring-*/src/main/java/META-INF/MANIFEST.MF
-
-# IDEA artifacts and output dirs
-*.iml
-*.ipr
-*.iws
-.idea
-out
-test-output
-atlassian-ide-plugin.xml
-
-# VS Code
+### VS Code ###
 .vscode/
 
 cached-antora-playbook.yml
