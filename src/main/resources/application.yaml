@@ -6,7 +6,6 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      # ??? ??? Entity? ???? ?? Table DROP & CREATE
       ddl-auto: create
 
     show-sql: true
