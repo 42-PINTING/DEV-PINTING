@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import pinting.backend.domain.Member;
-import pinting.backend.dto.MemberFormDto;
+import pinting.backend.dto.MemberDto;
 import pinting.backend.service.MemberService;
 
 import java.util.List;
@@ -25,9 +25,9 @@ public class MemberController {
 	}
 
 	@PostMapping("/members/new")
-	public String create(MemberFormDto memberFormDto) {
+	public String create(MemberDto memberDto) {
 		Member member = new Member();
-		member.setName(memberFormDto.getName());
+		member.setName(memberDto.getName());
 
 //		System.out.println(member.getName());
 		memberService.join(member);
