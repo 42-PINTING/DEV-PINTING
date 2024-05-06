@@ -2,10 +2,8 @@ package pinting.backend.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import pinting.backend.domain.Member;
+import pinting.backend.entity.Member;
 import pinting.backend.repository.MemberRepository;
-import pinting.backend.repository.MemoryMemberRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +25,7 @@ public class MemberService {
 		memberRepository.save(member);
 		return member.getId();
 	}
+
 	private void validateDuplicateMember(Member member) {
 		memberRepository.findByName(member.getName())
 				.ifPresent(m -> {

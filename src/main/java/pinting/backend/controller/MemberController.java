@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import pinting.backend.domain.Member;
+import pinting.backend.entity.Member;
 import pinting.backend.dto.MemberDto;
 import pinting.backend.service.MemberService;
 
@@ -29,10 +29,10 @@ public class MemberController {
 		Member member = new Member();
 		member.setName(memberDto.getName());
 
-//		System.out.println(member.getName());
+		System.out.println(member.getName());
 		memberService.join(member);
 
-		return "redirect:/";
+		return "redirect:/members/admin";
 	}
 
 	@GetMapping("/members")
@@ -41,5 +41,10 @@ public class MemberController {
 
 		model.addAttribute("members", members);
 		return "members/memberList";
+	}
+
+	@GetMapping("/members/admin")
+	public String memberAdmin(Model model) {
+		return "member";
 	}
 }

@@ -1,7 +1,7 @@
 package pinting.backend.repository;
 
 import org.springframework.stereotype.Repository;
-import pinting.backend.domain.Member;
+import pinting.backend.entity.Member;
 
 import java.util.*;
 
@@ -26,13 +26,6 @@ public class MemoryMemberRepository implements MemberRepository {
 	public Optional<Member> findByName(String name) {
 		return store.values().stream()
 				.filter(member -> member.getName().equals(name))
-				.findAny();
-	}
-
-	@Override
-	public Optional<Member> findByUsername(String username) {
-		return store.values().stream()
-				.filter(member -> member.getUsername().equals(username))
 				.findAny();
 	}
 

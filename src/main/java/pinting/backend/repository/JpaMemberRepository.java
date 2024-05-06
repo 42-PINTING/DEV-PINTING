@@ -1,7 +1,7 @@
 package pinting.backend.repository;
 
 import jakarta.persistence.EntityManager;
-import pinting.backend.domain.Member;
+import pinting.backend.entity.Member;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,15 +30,6 @@ public class JpaMemberRepository implements MemberRepository {
 	public Optional<Member> findByName(String name) {
 		List<Member> result = em.createQuery("select m from Member m where m.name = :name", Member.class)
 				.setParameter("name", name)
-				.getResultList();
-
-		return result.stream().findAny();
-	}
-
-	@Override
-	public Optional<Member> findByUsername(String username) {
-		List<Member> result = em.createQuery("select m from Member m where m.username = :username", Member.class)
-				.setParameter("username", username)
 				.getResultList();
 
 		return result.stream().findAny();
