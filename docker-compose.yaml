@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+#    env_file:
+#      - .env
+    healthcheck:
+      test: pg_isready -d postgres -h postgres -p 5432 -U postgres
+      interval: 10s
+      timeout: 30s
+      retries: 20
+
+  backend:
+    container_name: backend
+    image: pinting/backend:1.0.0
+    restart: always
+    build: .
+    ports:
+      - '8080:8080'
+#    env_file:
+#      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
