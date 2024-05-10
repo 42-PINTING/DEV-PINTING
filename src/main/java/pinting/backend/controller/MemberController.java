@@ -29,7 +29,6 @@ public class MemberController {
 		Member member = new Member();
 		member.setName(memberDto.getName());
 
-		System.out.println(member.getName());
 		memberService.join(member);
 
 		return "redirect:/members/admin";

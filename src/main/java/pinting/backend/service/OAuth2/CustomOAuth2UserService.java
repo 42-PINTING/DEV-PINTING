@@ -30,25 +30,18 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
 		OAuth2User oAuth2User = super.loadUser(userRequest);
 
-		//지울 주석
-		System.out.println("in OAuth2User Service : " + oAuth2User);
-
 		String registrationId = userRequest.getClientRegistration().getRegistrationId();
 
 		OAuth2Response oAuth2Response = null;
 
 		if (registrationId.equals("google")) {
 			oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
-			System.out.println("loadUser : " + oAuth2Response);
 		} else {
-			//지울 주석
-			System.out.println("loadUser is null");
 			return null;
 		}
 
 		String username = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
 		UserEntity existData = userRepository.findByUsername(username).orElse(null);
-		System.out.println("pinting username : " + username);
 
 		if (existData == null) {
 			UserEntity userEntity = new UserEntity();
@@ -57,24 +50,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 			userEntity.setName(oAuth2Response.getName());
 			userEntity.setRole("ROLE_USER");
 
-			//지울 주석
-			System.out.println("pinting Entity username : " + userEntity.getUsername());
-			System.out.println("pinting Entity email : " + userEntity.getEmail());
-			System.out.println("pinting Entity name : " + userEntity.getName());
-			System.out.println("pinting Entity role : " + userEntity.getRole());
-
 			userRepository.save(userEntity);
-
-			//지울 주석
-			System.out.println("pinting insert success");
 
 			UserDto userDto = new UserDto();
 			userDto.setUsername(username);
 			userDto.setName(oAuth2Response.getName());
 			userDto.setRole("ROLE_USER");
-
-			//지울 주석
-			System.out.println("pinting send ready to customOAuth2User");
 
 			return new CustomOAuth2User(userDto);
 		} else {
