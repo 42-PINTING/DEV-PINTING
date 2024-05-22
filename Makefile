@@ -14,6 +14,6 @@ re:
 	make up
 
 env_update:
-	git submodule update --init --recursive
+	git submodule update --init --recursive --remote
 
 .PHONY: build up env_update up re
