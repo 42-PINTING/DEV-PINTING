@@ -12,10 +12,20 @@ services:
     ports:
       - 443:443
       - 80:80
-    volumes:
-      - fe-vol:/var/www/html/srcs
     networks:
       - pinting_net
+
+  front_end:
+    container_name: front_end
+    image: pinting/front_end
+    restart: always
+    pull_policy: never
+    build: ./FE-PINTING
+    expose: 3000
+    networks:
+      - pinting_net
+    volumes:
+      - ./FE-PINTING:/usr/src/app
 
   # BE
   auth_db:
