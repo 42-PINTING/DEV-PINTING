@@ -3,11 +3,11 @@ build:
 
 up:
 	make build
-	docker compose up
+	docker compose --env-file ./env/.env up
 
 fclean:
 	rm -rf ./data
-	docker compose -f ./docker-compose.yaml down --rmi all --volumes
+	docker compose --env-file ./env/.env -f ./compose.yaml down --rmi all --volumes
 
 re:
 	make fclean
