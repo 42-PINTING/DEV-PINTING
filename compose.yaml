@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+
+  # FE
+  web-proxy:
+    container_name: web-proxy
+    image:  web-proxy
+    pull_policy: never
+    build: ./web-proxy
+    restart: always
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - fe-vol:/var/www/html/srcs
+    networks:
+      - pinting_net
+
+  # BE
+  auth_db:
+    container_name: auth_db
+    image: postgres:16.3-alpine3.19
+    restart: always
+    environment:
+      POSTGRES_USER: ${AUTH_DB_USER}
+      PGUSER: ${AUTH_DB_USER}
+      POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD}
+      POSTGRES_DB: ${AUTH_DB_NAME}
+      PGDATABASE: ${AUTH_DB_NAME}
+      PGPORT: ${AUTH_DB_PORT}
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - "${AUTH_DB_PORT}:${AUTH_DB_PORT}"
+    command: -p ${AUTH_DB_PORT}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "db_prod"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+    networks:
+      - pinting_net
+
+  auth:
+    container_name: auth
+    image: pinting/auth:1.0.0
+    restart: always
+    build: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      auth_db:
+        condition: service_healthy
+    networks:
+      - pinting_net
+
+networks:
+  pinting_net:
+    driver: bridge
