@@ -1,22 +1,22 @@
 version: '3'
 
 services:
-  auth_db:
-    container_name: auth_db
+  gateway_db:
+    container_name: gateway_db
     image: postgres:16.3-alpine3.19
     restart: always
     environment:
-      POSTGRES_USER: ${AUTH_DB_USER}
-      PGUSER: ${AUTH_DB_USER}
-      POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD}
-      POSTGRES_DB: ${AUTH_DB_NAME}
-      PGDATABASE: ${AUTH_DB_NAME}
-      PGPORT: ${AUTH_DB_PORT}
+      POSTGRES_USER: ${GATEWAY_DB_USER}
+      PGUSER: ${GATEWAY_DB_USER}
+      POSTGRES_PASSWORD: ${GATEWAY_DB_PASSWORD}
+      POSTGRES_DB: ${GATEWAY_DB_NAME}
+      PGDATABASE: ${GATEWAY_DB_NAME}
+      PGPORT: ${GATEWAY_DB_PORT}
     volumes:
       - ./data:/var/lib/postgresql/data
     ports:
-      - "${AUTH_DB_PORT}:${AUTH_DB_PORT}"
-    command: -p ${AUTH_DB_PORT}
+      - "${GATEWAY_DB_PORT}:${GATEWAY_DB_PORT}"
+    command: -p ${GATEWAY_DB_PORT}
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready", "-d", "db_prod"]
       interval: 10s
@@ -25,9 +25,9 @@ services:
     networks:
       - pinting_net
 
-  auth:
-    container_name: auth
-    image: pinting/auth:1.0.0
+  gateway:
+    container_name: gateway
+    image: pinting/gateway:1.0.0
     restart: always
     build: .
     env_file:
@@ -35,7 +35,7 @@ services:
     ports:
       - '8080:8080'
     depends_on:
-      auth_db:
+      gateway_db:
         condition: service_healthy
     networks:
       - pinting_net
@@ -45,9 +45,9 @@ networks:
     driver: bridge
 
 # volumes:
-  # auth_db_vol:
+  # gateway_db_vol:
   #   driver: local
   #   driver_opts:
   #     o: bind
   #     type: none
-  #     device: ${AUTH_DB_VOL_PATH}
+  #     device: ${GATEWAY_DB_VOL_PATH}
