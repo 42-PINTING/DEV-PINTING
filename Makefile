@@ -3,7 +3,7 @@ build:
 
 up:
 	make build
-	docker compose --env-file ./env/.env up
+	docker compose --env-file ./env/.env up -d
 
 fclean:
 	rm -rf ./data
