@@ -156,4 +156,4 @@ dist
 
 # env
 .env*
-env
+env*
