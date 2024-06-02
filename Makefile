@@ -10,6 +10,10 @@ pull:
 		echo "env 파일이 없어요.\ngit clone을 실행합니다."; \
 		git clone $(REPO_URL); \
 	fi
+	
+	git subtree pull --prefix=FE-PINTING git@github.com:42-PINTING/FE-PINTING.git main
+	git subtree pull --prefix=BE-PINTING-gateway git@github.com:42-PINTING/BE-PINTING-gateway.git main
+	git subtree pull --prefix=BE-PINTING-board git@github.com:42-PINTING/BE-PINTING-board.git main
 
 build:
 # cd ${BE} && make build
