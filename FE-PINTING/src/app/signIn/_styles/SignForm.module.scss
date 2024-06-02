@@ -1,0 +1,53 @@
+.signInForm {
+  display: flex;
+  font-size: 1.3em;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+}
+
+$commonWidth: 100%;
+$commonHeight: 20%;
+$commonFontSize: 1.2rem;
+
+%label {
+  display: flex;
+  height: $commonHeight;
+  width: $commonWidth;
+  font-size: $commonFontSize;
+}
+
+%input {
+  display: flex;
+  height: $commonHeight;
+}
+
+.emailLabel {
+  @extend %label;
+}
+
+.emailInput {
+  @extend %input;
+}
+
+.passwordLabel {
+  @extend %label;
+}
+
+.passwordInput {
+  @extend %input;
+}
+
+.signBtnGroup {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.signBtn {
+  display: block;
+  border: 0;
+  padding: 0;
+  text-align: center;
+  width: 48%;
+}

@@ -1,0 +1,38 @@
+name: Build Test before merge
+
+on:
+  pull_request:
+  # main 브랜치에 PR 이벤트가 발생했을 때 trigger
+    branches:
+      - main 
+      # PR이 open, reopen 되었을 때 / main 브랜치의 내용과 동기화시켰을 때 trigger
+    types: [opened, reopened, synchronize] 
+
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: latest
+          # 노드가 최신 버전인지 확인
+          check-latest: true
+          #------- 나중에 캐싱 -----
+          # Used to specify a package manager for caching in the default directory. Supported values: npm, yarn, pnpm.
+          # Package manager should be pre-installed
+          # Default: ''
+          # cache: ''
+
+          #------- 나중에 캐싱 -----
+          # Used to specify the path to a dependency file: package-lock.json, yarn.lock, etc. 
+          # It will generate hash from the target file for primary key. It works only If cache is specified.  
+          # Supports wildcards or a list of file names for caching multiple dependencies.
+          # Default: ''
+          # cache-dependency-path: ''
+      - run: npm i && npm -v && node -v
+
+      - name: Build
+        run: npm run build
