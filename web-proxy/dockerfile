@@ -13,11 +13,11 @@ RUN apk update && \
 RUN adduser -D pinting
 
 # TODO: 실제 인증키 발급 로직으로 변경해야 함.
-RUN openssl genrsa -out ${SSL_PATH}/fresh_pong.key 2048 && \
-    openssl req -new -key ${SSL_PATH}/fresh_pong.key -out ${SSL_PATH}/fresh_pong.crt \
-    -subj "/C=KR/ST=Seoul/L=Gaepodong/O=pinting/OU=member/CN=pinting.com" && \
-    openssl x509 -req -days 1000 -in ${SSL_PATH}/fresh_pong.crt -signkey ${SSL_PATH}/fresh_pong.key -out ${SSL_PATH}/fresh_pong.crt && \
-    chown -R nginx ${SSL_PATH}
+# RUN openssl genrsa -out ${SSL_PATH}/fresh_pong.key 2048 && \
+#     openssl req -new -key ${SSL_PATH}/fresh_pong.key -out ${SSL_PATH}/fresh_pong.crt \
+#     -subj "/C=KR/ST=Seoul/L=Gaepodong/O=pinting/OU=member/CN=pinting.com" && \
+#     openssl x509 -req -days 1000 -in ${SSL_PATH}/fresh_pong.crt -signkey ${SSL_PATH}/fresh_pong.key -out ${SSL_PATH}/fresh_pong.crt && \
+#     chown -R nginx ${SSL_PATH}
 
 WORKDIR /var/www/html
 

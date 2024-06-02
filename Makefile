@@ -1,4 +1,4 @@
-BE = ./BE-PINTING
+BE_GATEWAY = ./BE-PINTING-gateway
 FE = ./FE-PINTING
 REPO_URL = git@github.com:42-PINTING/env
 
@@ -16,18 +16,19 @@ pull:
 	git subtree pull --prefix=BE-PINTING-board git@github.com:42-PINTING/BE-PINTING-board.git main
 
 build:
-# cd ${BE} && make build
+	cd ${BE_GATEWAY} && make build
 
-up:
-# cd ${BE} && make build
-	docker compose up -d
+up: 
+	make build
+	docker compose --env-file ./env/.env up -d
 
 fclean:
 # cd ${BE} && make fclean
-	docker compose -f ./compose.yaml down --rmi all --volumes
+	docker rmi -f web-proxy pinting/gateway:1.0.0 pinting/front_end
+	docker compose --env-file ./env/.env -f ./compose.yaml down --volumes
 
 sh:
-	docker compose run -it --service-ports web-proxy sh 
+	docker compose --env-file ./env/.env run -it --service-ports web-proxy sh 
 
 re:
 	make fclean
