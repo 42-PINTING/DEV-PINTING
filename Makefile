@@ -12,15 +12,18 @@ pull:
 	fi
 
 build:
-	cd ${BE} && make build
+# cd ${BE} && make build
 
 up:
-	cd ${BE} && make build
-	docker compose --env-file ./env/.env up -d
+# cd ${BE} && make build
+	docker compose up -d
 
 fclean:
-	cd ${BE} && make fclean
-	docker compose --env-file ./env/.env -f ./compose.yaml down --rmi all --volumes
+# cd ${BE} && make fclean
+	docker compose -f ./compose.yaml down --rmi all --volumes
+
+sh:
+	docker compose run -it --service-ports web-proxy sh 
 
 re:
 	make fclean
